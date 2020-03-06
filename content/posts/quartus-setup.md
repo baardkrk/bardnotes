@@ -1,11 +1,9 @@
 ---
 title: "Quartus Setup on Linux"
 date: 2020-03-06T15:38:59+01:00
-draft: true
+tags: [FPGA, Electronics, Linux]
+draft: false
 ---
-
-Setting up Quartus on linux
-===============
 
 I had some problems setting up Quartus on ubuntu 16.04, so here's a short tutorial.
 My board is a DE10-Lite, and I'm using the Linux edition of [Quartus Prime Lite][1], 18.1
