@@ -5,7 +5,7 @@ set -e
 printf "\033[0;32mDeploying updates to GitHub...\033[0m\n"
 
 # Build the project
-hugo # if using a theme, add `-t <YOUR THEME>`
+hugo -t m10c # if using a theme, add `-t <YOUR THEME>`
 
 # Add changes to GitHub
 cd public

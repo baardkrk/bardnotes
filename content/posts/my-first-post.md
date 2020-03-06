@@ -25,6 +25,7 @@ It would also be interesting to see how tables look:
 |  1  |  0  |    1    |
 |  1  |  1  |    0    |
 
+Also, I forked the m10c theme, because just adding the submodule apparently wasn't enough for github. Hope this works..
 And later, we'll have to check out if we can activate KaTeX!
 
 -----------------------------------------------------------------------------
@@ -62,6 +63,22 @@ class HelloWorld {
         System.out.println("Hello, World!");
     }
 }
+```
+#### Python
+```python
+def foo():
+    print("Hello, World!")
+
+
+if __name__ == '__main__':
+    foo()
+```
+#### Lisp
+```lisp
+(defun foo ()
+    (format t "Hello, World!~%"))
+
+(foo)
 ```
 
 That's all folks!

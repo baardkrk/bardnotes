@@ -1,4 +1,8 @@
 [submodule "public"]
 	path = public
-	url = https://github.com/baardkrk/baardkrk.github.io
+	url = https://github.com/baardkrk/baardkrk.github.io.git
+	branch = master
+[submodule "themes/m10c"]
+	path = themes/m10c
+	url = https://github.com/baardkrk/hugo-theme-m10c.git
 	branch = master
