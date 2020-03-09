@@ -37,7 +37,7 @@ Numbered Lists:
 
 1. **Laziness**   
    The quality that makes you go to great effort to reduce overall energy expenditure. It makes you
-   write labor-saving programs that other people eill find useful and document what you wrote so you
+   write labor-saving programs that other people will find useful and document what you wrote so you
    don't have to answer so many questions about it.
 
 2. **Impatience**  
