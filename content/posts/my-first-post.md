@@ -28,6 +28,26 @@ It would also be interesting to see how tables look:
 Also, I forked the m10c theme, because just adding the submodule apparently wasn't enough for github. Hope this works..
 And later, we'll have to check out if we can activate KaTeX!
 
+In addition, we'll test out the other markdown features, such as [quotes][1]:
+
+> There are three great virtues of a programmer; Laziness, Impatience and Hubris  
+> *-- Larry Wall, original author of Perl*
+
+Numbered Lists:
+
+1. **Laziness**   
+   The quality that makes you go to great effort to reduce overall energy expenditure. It makes you
+   write labor-saving programs that other people eill find useful and document what you wrote so you
+   don't have to answer so many questions about it.
+
+2. **Impatience**  
+   The anger you feel when the computer is being lazy. This makes you write programs that don't just
+   react to your needs, but actually anticipate them. Or at least pretend to.
+
+3. **Hubris**  
+   The quality that makes you write (and maintain) programs that other people won't say bad things
+   about.
+
 -----------------------------------------------------------------------------
 
 ### Hugo usage
@@ -40,6 +60,9 @@ $ hugo new posts/<NEW POST NAME>
 $ ./deploy.sh
 ```
 Should do everything from updating the current repository, as well as updating the GitHub page.
+
+To update the theme, you just add it as a submodule to the project (unless already done) and change it.
+However, it is very important to have the *extended* version of hugo to build this theme.
 
 ------------------------------------------------------------------------------
 
@@ -82,3 +105,5 @@ if __name__ == '__main__':
 ```
 
 That's all folks!
+
+[1]: http://threevirtues.com/
