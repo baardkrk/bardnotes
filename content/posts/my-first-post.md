@@ -25,7 +25,7 @@ It would also be interesting to see how tables look:
 |  1  |  0  |    1    |
 |  1  |  1  |    0    |
 
-Also, I forked the m10c theme, because just adding the submodule apparently wasn't enough for github. Hope this works..
+Also, I forked the m10c theme, because just adding the submodule apparently wasn't enough for github. Hope this works..  
 And later, we'll have to check out if we can activate KaTeX!
 
 In addition, we'll test out the other markdown features, such as [quotes][1]:
@@ -60,9 +60,19 @@ $ hugo new posts/<NEW POST NAME>
 $ ./deploy.sh
 ```
 Should do everything from updating the current repository, as well as updating the GitHub page.
-
-To update the theme, you just add it as a submodule to the project (unless already done) and change it.
-However, it is very important to have the *extended* version of hugo to build this theme.
+To update the theme, you just add it as a submodule to the project (unless already done) and change it.  
+This is also needed if the repository for the site is freshly downloaded:
+```
+$ git clone <MAIN REPOSITORY>
+$ cd <MAIN REPOSITORY>/themes
+$ git submodule add <THEME REPOSITORY>
+```
+Building the site locally is done by calling
+```
+$ hugo server -D
+```
+Usually it will be available at `localhost:1313`
+However, it is very important to have the *extended* version of hugo to build some of the themes, at least the one I'm using on this site.
 
 ------------------------------------------------------------------------------
 
