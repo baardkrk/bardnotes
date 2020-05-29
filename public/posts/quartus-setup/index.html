@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Quartus Setup on Linux // Bard&#39;s notes</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.68.3" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Bård-Kristian Krohg" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://baardkrk.github.io/css/main.min.2fe2978ce5880a41735c8516c7ac4c39fbf329c842daecc2edfa4b941a9b3e26.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Quartus Setup on Linux"/>
+<meta name="twitter:description" content="I had some problems setting up Quartus on ubuntu 16.04, so here&rsquo;s a short tutorial. My board is a DE10-Lite, and I&rsquo;m using the Linux edition of Quartus Prime Lite, 18.1 update 646. I&rsquo;m writing this quite a while after the fact, but I seem to remember that I had to register an account to download the software. The installation seemed to go without issue if I remember correctly, but that ended when I tried to program my board."/>
+
+    <meta property="og:title" content="Quartus Setup on Linux" />
+<meta property="og:description" content="I had some problems setting up Quartus on ubuntu 16.04, so here&rsquo;s a short tutorial. My board is a DE10-Lite, and I&rsquo;m using the Linux edition of Quartus Prime Lite, 18.1 update 646. I&rsquo;m writing this quite a while after the fact, but I seem to remember that I had to register an account to download the software. The installation seemed to go without issue if I remember correctly, but that ended when I tried to program my board." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://baardkrk.github.io/posts/quartus-setup/" />
+<meta property="article:published_time" content="2020-03-06T15:38:59+01:00" />
+<meta property="article:modified_time" content="2020-03-06T15:38:59+01:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://baardkrk.github.io/"><img class="app-header-avatar" src="/img/profile_pic.jpeg" alt="Bård-Kristian Krohg" /></a>
+      <h1>Bard&#39;s notes</h1>
+      <p>Just a developer with developing interests all over the place</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/baardkrk" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/baardkrk" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/apaitio" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://instagram.com/kigbit" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-instagram">
+  <title>instagram</title>
+  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line>
+</svg></a>
+        
+      </div>
+      <div class="app-header-tags"><div>
+	  <a class="tag" href="https://baardkrk.github.io/tags/electronics/">electronics</a><a class="tag" href="https://baardkrk.github.io/tags/fpga/">FPGA</a><a class="tag" href="https://baardkrk.github.io/tags/linux/">linux</a><a class="tag" href="https://baardkrk.github.io/tags/quartus/">quartus</a><a class="tag" href="https://baardkrk.github.io/tags/article/">article</a><a class="tag" href="https://baardkrk.github.io/tags/hugo/">hugo</a><a class="tag" href="https://baardkrk.github.io/tags/thoughts/">thoughts</a></div></div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Quartus Setup on Linux</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Mar 6, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          4 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://baardkrk.github.io/tags/fpga/">FPGA</a><a class="tag" href="https://baardkrk.github.io/tags/electronics/">electronics</a><a class="tag" href="https://baardkrk.github.io/tags/linux/">linux</a><a class="tag" href="https://baardkrk.github.io/tags/quartus/">quartus</a></div></div>
+    </header>
+    <div class="post-content">
+      <p>I had some problems setting up Quartus on ubuntu 16.04, so here&rsquo;s a short tutorial.
+My board is a DE10-Lite, and I&rsquo;m using the Linux edition of <a href="https://fpgasoftware.intel.com/?edition=lite">Quartus Prime Lite</a>, 18.1
+update 646.
+I&rsquo;m writing this quite a while after the fact, but I seem to remember that I had to register
+an account to download the software.
+The installation seemed to go without issue if I remember correctly, but that ended when I
+tried to program my board.</p>
+<p>Quartus was able to initialize the sequence, but encountered a JTAG problem. The
+load-indicator-led on the board also lights up when quartus starts the programming, but
+then gives up when the programmer encounters the error:</p>
+<pre><code>209040 Can't Access JTAG chain
+</code></pre><p>I tried running the JTAG-chain debugging tool, but it also just hangs for a couple of
+minutes, and then, nothing happens.</p>
+<p>The main problem was that I got a USB Blaster JTAG issue.</p>
+<h2 id="solution">Solution</h2>
+<p>I initially followed <a href="http://fpgacpu.ca/fpga/USB-Blaster-Debian.html">a tutorial</a> however it has been removed, so I&rsquo;ll reiterate it
+here. (Much of the text will be a direct copy of the original, written by Eric LaForest)</p>
+<hr>
+<p>The solution is to allow <code>jtagd</code> to run as <code>root</code> to ensure sufficient permissions.</p>
+<h3 id="create-udev-rule">Create udev rule</h3>
+<p>We have to create a new <code>udev</code> rule in <code>/etc/udev/rules.d/51-altera-usb-blaster.rules</code>:</p>
+<pre><code># USB-Blaster
+SUBSYSTEM==&quot;usb&quot;, ATTR{idVendor}==&quot;09fb&quot;, ATTR{idProduct}==&quot;6001&quot;, MODE=&quot;0666&quot;
+SUBSYSTEM==&quot;usb&quot;, ATTR{idVendor}==&quot;09fb&quot;, ATTR{idProduct}==&quot;6002&quot;, MODE=&quot;0666&quot;
+SUBSYSTEM==&quot;usb&quot;, ATTR{idVendor}==&quot;09fb&quot;, ATTR{idProduct}==&quot;6003&quot;, MODE=&quot;0666&quot;
+# USB-Blaster II
+SUBSYSTEM==&quot;usb&quot;, ATTR{idVendor}==&quot;09fb&quot;, ATTR{idProduct}==&quot;6010&quot;, MODE=&quot;0666&quot;
+SUBSYSTEM==&quot;usb&quot;, ATTR{idVendor}==&quot;09fb&quot;, ATTR{idProduct}==&quot;6810&quot;, MODE=&quot;0666&quot;
+</code></pre><p>Then, reload the file using</p>
+<pre><code>$ udevadm control --reload
+</code></pre><h3 id="allow-non-root-access-to-the-usb-blaster-device">Allow non-root access to the USB-blaster device</h3>
+<p>Create a file called <code>altera-usb-blaster.rules</code> in <code>/etc/udev/rules.d/</code> containing a
+single line:</p>
+<pre><code>ATTR{idVendor}==&quot;09fb&quot;, ATTR{idProduct}==&quot;6001&quot;, MODE=&quot;666&quot;
+</code></pre><p>This grants <code>rw-rw-rw-</code> permissions to the device. A more proper configuration involves
+creating a group for the device, say <code>usbblaster</code>, placing your user(s) in that group, and
+defining the device permissions:</p>
+<pre><code>ATTR{idVendor}==&quot;09fb&quot;, ATTR{idProduct}==&quot;6001&quot;, GROUP=&quot;usbblaster&quot;
+</code></pre><p><em>Note that this is not perfect: multiple USB device entries will be created for the
+USB-Blaster, and not all will have the new permissions, which is why <code>jtagd</code> must run as
+root.</em></p>
+<h3 id="configuring-jtagd">Configuring <code>jtagd</code></h3>
+<p>Quartus uses a daemon, <code>jtagd</code>, as an intermediate between the programming software and
+the device. This seems needlessly complicated, but does enable remote host programming,
+apparently. The key points to configuring it correctly are: it must be able to access a
+list of FPGA descriptions and run as <code>root</code>.</p>
+<p>Copy the descriptions from your Quartus installation to the configuration directory of
+<code>jtagd</code>:</p>
+<pre><code>$ mkdir /etc/jtagd
+$ cp &lt;QUARTUS INSTALL PATH&gt;/linux/quartus/pgm_parts.txt /etc/jtagd/jtagd.pgm_parts
+</code></pre><p><em>Note the change of the name in the second command!</em></p>
+<p>Then, have <code>jtagd</code> start at boot by either placing it in the <code>rc.d</code> system, or simply
+place the following line in <code>/etc/rc.local</code>:</p>
+<pre><code>&lt;QUARTUS INSTALL PATH&gt;/linux/quartus/bin/jtagd
+</code></pre><p>Although it might get created automatically, you can create an empty file named
+<code>.jtagd.conf</code> in your home directory. I hear it&rsquo;s possible to edit it to allow external
+hosts to connect and program/debug. This is only neccessary if you want to use that
+feature.</p>
+<h3 id="testing-your-setup">Testing your setup</h3>
+<p>As a final test, plug in your device, run <code>$ dmesg</code> to see if the USB-Blaster device is
+found, then run (as your usual user) <code>$ jtagconfig</code>. You should see some similar output to
+this:</p>
+<pre><code>1) USB-Blaster [USB 1-1.1]
+  020B30DD   EP2C15/20
+</code></pre><p>If USB device permissions are insufficient, (they shouldn&rsquo;t given the rule you added in
+<code>/etc/udev/rules.d/altera-usb-blaster.rules</code>) you will instead get</p>
+<pre><code>No JTAG hardware available
+</code></pre><p>If USB permissions are OK, but <code>jtagd</code> is not running as <code>root</code>, you&rsquo;ll see:</p>
+<pre><code>1) USB_Blaster [USB 4-1.2]
+  Unable to lock chain (Insufficient port permissions)
+</code></pre><p>Finally, if permissions are OK and <code>jtagd</code> is running as root, but it cannot access the
+FPGA device descriptions, you will see:</p>
+<pre><code>1) USB-Blaster [USB 4-1.2]
+  024030DD
+</code></pre><hr>
+<p>I continued to have some problems, so my final fix was to follow <a href="https://electronics.stackexchange.com/questions/239882/altera-cyclone-ii-jtag-after-as-programming">this answer</a>.
+This is if you still get something like <code>JTAG chain broken</code>. It seems to solve the problem
+if you download <code>libudev1:i368</code> and create a symbolic link:</p>
+<pre><code>$ sudo apt-get install libudev1:i386
+$ sudo ln -sf /lib/x86_64-linux-gnu/libudev.so.1 /lib/x86_64-linux-gnu/libudev.so.0
+</code></pre><p>Hopefully this works for whoever else reads this!</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

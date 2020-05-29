@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>thoughts on Bard&#39;s notes</title>
+    <link>https://baardkrk.github.io/tags/thoughts/</link>
+    <description>Recent content in thoughts on Bard&#39;s notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 06 Mar 2020 15:34:50 +0100</lastBuildDate>
+    
+	<atom:link href="https://baardkrk.github.io/tags/thoughts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>My First Post</title>
+      <link>https://baardkrk.github.io/posts/my-first-post/</link>
+      <pubDate>Fri, 06 Mar 2020 15:34:50 +0100</pubDate>
+      
+      <guid>https://baardkrk.github.io/posts/my-first-post/</guid>
+      <description>Here&amp;rsquo;s my first post on this site, built with Hugo. This is where I&amp;rsquo;ll collect my notes on all kinds of topics! I hope to be able to share all my different interests, such as
+ Programming Security Photography Robotics Karate Architecture FPGAs and Electronics  The site structure will have to come later.. It would also be interesting to see how tables look:
+   A B A xor B     0 0 0   0 1 1   1 0 1   1 1 0    Also, I forked the m10c theme, because just adding the submodule apparently wasn&amp;rsquo;t enough for github.</description>
+    </item>
+    
+  </channel>
+</rss>
