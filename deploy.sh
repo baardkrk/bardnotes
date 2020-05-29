@@ -12,7 +12,7 @@ fi
 printf "\033[0;32mDeploying updates to GitHub...\033[0m\nCommit message: \"$msg\"\n"
 
 # Build the project
-hugo -t m10c # if using a theme, add `-t <YOUR THEME>`
+hugo # if using a theme, add `-t <YOUR THEME>`
 
 # Add changes to GitHub
 cd public
