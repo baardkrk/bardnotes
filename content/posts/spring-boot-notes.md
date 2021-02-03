@@ -211,6 +211,11 @@ Another point here is to test your boundaries independently. You can use learnin
 When writing tests for APIs you rely on a clean way is to write a "fake" version of the API which implements an interface *you* define (this is also sometimes called a test-double, by Martin Fowler. However, test-double is a wide term that can be used for dummy, fake, stub, spy, or mock). Then, an Adapter is written for the API wich also implements the same interface. That way, only the Adapter has to change if the API changes, as we talked about earlier in the beginning.
 
 ### Unit Tests
+
+As we talked about before, some classes are quite open, the data structures. These have getters (but, not neccessarily setters), and is only used to *hold* data. Therefore, they are not neccessary to test either. However, the other type of objects, where the implementation details are hidden is another story. It is for these objects that we write tests for their *functionality*. We're not interested in what the object holds, only testing that the methods behaves the way we expect when the object is initialized in a certain way.
+
+MockRestServiceServer or OkHTTPs MockWebServer
+Testcontainers:: open source project. Can be used to create docker containers which can have databases you can test on.
 We'll use JUnit to run our tests, so we need to add it to our dependiencies:
 ```xml
 <dependency>
@@ -219,6 +224,20 @@ We'll use JUnit to run our tests, so we need to add it to our dependiencies:
 	<scope>test</scope>
 </dependency>
 ```
+
+the SpringBootTest annotation looks through the hierarcy to find any SpringBootAppliaction, or SpringBootConfiguration annotations. You can also pull in configurations to the test by using Import or ContextConfiguration.
+
+When testing a particular part of an application you can use one of the following annotations:
+RestClientTest, DataJpaTest, JsonTest, WebMvcTest, DataMongoTest, JdbcTest, JooqTest, DataNeo4Test, DataLdapTest, or WebFluxTest
+
+These Annotations strip out beans from the context that aren't relevant to what you're testing. This makes the test faster, because many beans aren't loaded.
+
+When some beans are stripped out by an annotation, we have to mock them out. This can be done by using the annotations MockBean or SpyBean.
+
+One can also do this by creating a nested configuration class inside the testclass, that creates the beans. An advantage of doing it this way, is that you will have control over how the beans are initialized. You can for example define behaviour for the bean at bean creation, instead of having to define it when the mock is called.
+
+For the case of WebMvcTest you can limit the scope to a single controller, using the controllers option in the annotation. This frees you from creating the beans that maybe other controller-classes would have needed to be instantiated.
+
 ### Integration tests
 To use the springrunner for tests, we need to add it to our dependencies:
 ```xml
@@ -227,4 +246,105 @@ To use the springrunner for tests, we need to add it to our dependencies:
 	<artifactId>spring-boot-starter-test</artifactId>
 	<scope>test</scope>
 </dependency>
+```
+
+
+# Spring Boot talk
+
+`HelloApp.java`:
+```java
+@SpringBootApplication
+public class HelloApp {
+    public static void main(String[] args) {
+	    SpringApplication.run(HelloApp.class, args);
+	}
+	
+	@Bean
+	public HelloService helloService() {
+		return new ConsoleHelloService("Hoqdy", "!");
+	}
+}
+```
+Here, we use the `SpringBootApplication` annotation, which is actually a bundle of annotations: `SpringBootConfiguration`, `ComponentScan`, and `EnableAutoConfiguration`.  
+`SpringBootConfiguration` is almost the same as the annotation `Configuration` with a little twist.  
+`ComponentScan` searches for beans and components in your application from the package the applied class is in. In the example, `ConsoleHelloService` is in a different package from the `HelloApp`, so we have to define it explicitly as a Bean. If, however, they would have been in the same package, `ComponentScan` would have found it and created a Bean automatically.  
+`EnableAutoConfiguration` triggers the auto-configuraiton for Spring Boot. (This is where the "magic" happens.)
+
+`Component` are one type of annotation. Specialized versions of this annotation include `Repository`, `Configuration`, `Controller`, `Service` and `RestController`.
+
+
+`HelloCommandLineRunner.java`:
+```java
+@Component
+public class HelloCommandLineRunner implements CommandLineRunner {
+
+	private final HelloService helloService;
+	
+	public HelloCommandLineRunner(HelloService helloService) {
+		this.helloService = helloService;
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		this.helloService.sayHello("World");
+	}
+}
+
+
+`HelloService.java`:
+```java
+public interface HelloService {
+    void sayHello(String name);
+}
+```
+
+`ConsoleHelloService.java`:
+```java
+public class ConsoleHelloService implements HelloService {
+    private final String prefix;
+	private final String suffix;
+	
+	public ConsoleHelloService(String prefix, string suffix) {
+	    this.prefix = (prefix != null ? prefix : "Hello");
+		this.suffix = (suffix != null ? suffix : "!");
+	}
+	public ConsoleHelloService() {
+	    this(null, null)
+	}
+	
+	@Override
+	public void sayHello(String name) {
+	    String msg = String.format("%s %s%s", this.prefix, name, this.suffix);
+		System.out.println(msg);
+	}
+}
+```
+
+`pom.xml`:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd>
+    <modelVersion>4.0.0</modelVersion>
+	<parent>
+	    <groupId>com.example</groupId>
+		<artifactId>hello-service-auto-configuration</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>hello-app</artifactId>
+	<name>Spring Boot Hello World :: App</name>
+	
+	<dependencies>
+	    <dependency>
+		    <groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.example</groupId>
+			<artifactId>hello-service</artifactId>
+		</dependency>
+	</dependencies>
+</project>
 ```
